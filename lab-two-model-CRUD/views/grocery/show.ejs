@@ -11,6 +11,9 @@
 	</header>
 
 	<a href="/grocery/<%=grocery.id%>/edit">Edit the Store</a>
+	<form action="/grocery/<%=grocery.id%>?_method=DELETE" method="POST">
+		<button type="submit">Delete</button>
+	</form>
 
 </body>
 </html>
