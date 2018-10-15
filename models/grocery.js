@@ -7,8 +7,7 @@ const grocerySchema = new mongoose.Schema({
 		type: Boolean,
 		required: true
 	},
-	price: String,
-	departments: [String]
+	price: String
 
 
 })

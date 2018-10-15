@@ -4,9 +4,11 @@ const router = express.Router();
 const Grocery = require('../models/grocery');
 
 
-// router.get('/new', (req, res) => {
-// 	res.render('/grocery/new.ejs')
-// })
+router.get('/grocery/new', (req, res) => {
+	res.render('./grocery/new.ejs', {
+		grocery: Grocery
+	})
+})
 router.get('/', (req, res) => {
 	res.render('index.ejs')
 })
