@@ -1,10 +1,9 @@
-const express = express('require');
+const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 
-require('.db/db');
-
+require('./db/db');
 const groceryController = require('./controllers/grocery');
 // const itemsController = require('./controllers/items');
 

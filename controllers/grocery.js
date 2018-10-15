@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const Grocery = require('..models/grocery');
+const Grocery = require('../models/grocery');
 
 
 router.get('/new', (req, res) => {
