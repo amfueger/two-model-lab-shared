@@ -70,5 +70,11 @@ router.put('/grocery/:id', (req, res) => {
 	})
 })
 
+router.delete('/grocery/:id', (req, res) => {
+	Grocery.findByIdAndRemove(req.params.id, (err, deletedGrocery) => {
+		res.redirect('/grocery');
+	})
+})
+
 
 module.exports = router;
