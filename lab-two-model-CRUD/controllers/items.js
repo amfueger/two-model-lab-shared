@@ -21,6 +21,16 @@ router.get('/new', (req, res) => {
 	res.render('./items/new.ejs')
 })
 
+router.post('/', (req, res) => {
+	Item.create(req.body, (err, createdItem) => {
+		if(err) {
+			console.log(err);
+		} else {
+			res.redirect('/items')
+		}
+	})
+})
+
 
 
 

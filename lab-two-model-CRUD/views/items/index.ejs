@@ -8,7 +8,7 @@
 		<h1>Items Index</h1>
 		<%items.forEach((el, i) => { %>
 			<ul>
-				<li><a href="/items/<%=items[i].id%>">el.name</a></li>
+				<li><a href="/items/<%=items[i].id%>"><%=el.item%></a></li>
 			</ul>
 		<% })%>
 		<a href="/items/new">Add New Item</a>
