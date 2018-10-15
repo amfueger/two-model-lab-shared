@@ -9,6 +9,15 @@ router.get('/grocery/new', (req, res) => {
 		grocery: Grocery
 	})
 })
+router.post('/grocery', (req, res) => {
+	Grocery.create(req.body, (err, createGrocery) => {
+		if(err){
+			console.log(err, "err");
+		} else {
+			res.redirect('/grocery')
+		}
+	});
+});
 router.get('/', (req, res) => {
 	res.render('index.ejs')
 })
