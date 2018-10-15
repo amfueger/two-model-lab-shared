@@ -5,6 +5,7 @@ const methodOverride = require('method-override');
 
 require('./db/db');
 const groceryController = require('./controllers/grocery');
+const itemController = require('./controllers/items');
 // const itemsController = require('./controllers/items');
 
 //Middleware
@@ -12,7 +13,8 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(methodOverride('_method'));
 
 //Controller
-app.use('/', groceryController);
+app.use('/grocery', groceryController);
+app.use('/items', itemController);
 
 //Index
 app.get('/', (req, res) => {

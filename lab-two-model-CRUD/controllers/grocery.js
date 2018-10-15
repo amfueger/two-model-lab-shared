@@ -4,12 +4,12 @@ const router = express.Router();
 const Grocery = require('../models/grocery');
 
 
-router.get('/grocery/new', (req, res) => {
+router.get('/new', (req, res) => {
 	res.render('./grocery/new.ejs', {
 		grocery: Grocery
 	})
 })
-router.post('/grocery', (req, res) => {
+router.post('/', (req, res) => {
 	Grocery.create(req.body, (err, createGrocery) => {
 		if(err){
 			console.log(err, "err");
@@ -22,11 +22,11 @@ router.post('/grocery', (req, res) => {
 // router.get('/:id', (req, res) => {
 	
 // })
-router.get('/', (req, res) => {
-	res.render('index.ejs')
-})
+// router.get('/', (req, res) => {
+// 	res.render('index.ejs')
+// })
 
-router.get('/grocery', (req, res) => {
+router.get('/', (req, res) => {
 	Grocery.find({}, (err, findGrocery) => {
 		res.render('./grocery/index.ejs', {
 			grocery:findGrocery
@@ -34,7 +34,7 @@ router.get('/grocery', (req, res) => {
 	});	
 });
 
-router.get('/grocery/:id', (req, res) => {
+router.get('/:id', (req, res) => {
 	Grocery.findById(req.params.id, (err, foundGrocery) => {
 		if(err) {
 			console.log(err);
@@ -46,7 +46,7 @@ router.get('/grocery/:id', (req, res) => {
 	})
 })
 
-router.get('/grocery/:id/edit', (req, res) => {
+router.get('/:id/edit', (req, res) => {
 	Grocery.findById(req.params.id, (err, foundGrocery) => {
 		if(err) {
 			console.log(err);
@@ -60,7 +60,7 @@ router.get('/grocery/:id/edit', (req, res) => {
 })
 
 
-router.put('/grocery/:id', (req, res) => {
+router.put('/:id', (req, res) => {
 	Grocery.findByIdAndUpdate(req.params.id, req.body, (err, updatedGrocery) => {
 		if(err) {
 			console.log(err);
@@ -70,7 +70,7 @@ router.put('/grocery/:id', (req, res) => {
 	})
 })
 
-router.delete('/grocery/:id', (req, res) => {
+router.delete('/:id', (req, res) => {
 	Grocery.findByIdAndRemove(req.params.id, (err, deletedGrocery) => {
 		res.redirect('/grocery');
 	})

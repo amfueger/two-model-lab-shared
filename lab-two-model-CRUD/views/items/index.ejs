@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Items Index Page</title>
+</head>
+<body>
+	<header>
+		<h1>Items Index</h1>
+		<%items.forEach((el, i) => { %>
+			<ul>
+				<li><a href="/items/<%=items[i].id%>">el.name</a></li>
+			</ul>
+		<% }%>
+		<a href="/items">Home</a>
+	</header>
+</body>
+</html>
