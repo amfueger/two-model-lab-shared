@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(methodOverride('_method'));
 
 //Controller
-app.use('/grocery', groceryController);
+app.use('/', groceryController);
 
 //Index
 app.get('/', (req, res) => {
@@ -21,7 +21,7 @@ app.get('/', (req, res) => {
 
 
 //listen
-app.use('')
+
 app.listen(3000, () => {
-	console.log(listening);
+	console.log("listening");
 })
