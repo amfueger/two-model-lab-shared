@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <link rel="stylesheet" href="/css/app.css">
+    </head>
+    <body>
+        <h1>Edit the Store!</h1>
+        <form method='POST' action='/grocery/<%=id%>?_method=PUT'>
+        <!--  NOTE: the form is pre-populated with values for the server-->
+            Name: <input type="text" name="name" value="<%=grocery.name%>"/><br/>
+            Open: <input type="boolean" name="open" value="<%=grocery.open%>"/><br/>
+            Price: <input type="text" name="price" value="<%=grocery.price%>">
+            <br/>
+                <input type="submit" name="" value="Submit Changes"/>
+        </form>
+    </body>
+</html>

@@ -46,10 +46,29 @@ router.get('/grocery/:id', (req, res) => {
 	})
 })
 
+router.get('/grocery/:id/edit', (req, res) => {
+	Grocery.findById(req.params.id, (err, foundGrocery) => {
+		if(err) {
+			console.log(err);
+		} else {
+			res.render('./grocery/edit.ejs', {
+				grocery: foundGrocery,
+				id: req.params.id
+			})
+		}
+	})
+})
 
 
-
-
+router.put('/grocery/:id', (req, res) => {
+	Grocery.findByIdAndUpdate(req.params.id, req.body, (err, updatedGrocery) => {
+		if(err) {
+			console.log(err);
+		} else {
+			res.redirect('/grocery');
+		}
+	})
+})
 
 
 module.exports = router;
