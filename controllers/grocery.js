@@ -18,13 +18,21 @@ router.post('/grocery', (req, res) => {
 		}
 	});
 });
+
+// router.get('/:id', (req, res) => {
+	
+// })
 router.get('/', (req, res) => {
 	res.render('index.ejs')
 })
 
 router.get('/grocery', (req, res) => {
-	res.render('./grocery/index.ejs')
-})
+	Grocery.find({}, (err, findGrocery) => {
+		res.render('./grocery/index.ejs', {
+			grocery:findGrocery
+		});
+	});	
+});
 
 
 
