@@ -34,6 +34,18 @@ router.get('/grocery', (req, res) => {
 	});	
 });
 
+router.get('/grocery/:id', (req, res) => {
+	Grocery.findById(req.params.id, (err, foundGrocery) => {
+		if(err) {
+			console.log(err);
+		} else {
+			res.render('./grocery/show.ejs', {
+				grocery: foundGrocery
+			})
+		}
+	})
+})
+
 
 
 

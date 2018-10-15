@@ -1,7 +1,6 @@
 {
   "name": "10-15-more-mongoose",
   "version": "1.0.0",
-  "description": "",
   "main": "server.js",
   "dependencies": {
     "body-parser": "^1.18.3",
@@ -16,5 +15,6 @@
     "start": "node server.js"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "description": ""
 }
