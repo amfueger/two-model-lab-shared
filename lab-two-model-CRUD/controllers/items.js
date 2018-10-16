@@ -4,10 +4,6 @@ const router = express.Router();
 const Item = require('../models/items');
 const Grocery = require('../models/grocery');
 
-const kale = new Item({item: 'kale'});
-
-kale.save();
-
 
 router.get('/', (req, res) => {
 	Item.find({}, (err, foundItems) => {
@@ -28,15 +24,18 @@ router.get('/new', (req, res) => {
 
 router.post('/', (req, res) => {
 	Item.create(req.body, (err, createdItem) => {
-		const wholeFoods = new Grocery({name: 'Whole Foods'});
-		wholeFoods.items.push(createdItem);
+		let store = new Grocery({name: req.body.store});
+		store.items.push(createdItem);
+		store.save();
 		if(err) {
 			console.log(err);
 		} else {
+			console.log(store);
 			res.redirect('/items')
 		}
 	})
 })
+
 
 router.get('/:id', (req, res) => {
 	Item.findById(req.params.id, (err, foundItem) => {

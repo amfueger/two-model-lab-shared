@@ -14,9 +14,5 @@ const grocerySchema = new mongoose.Schema({
 
 })
 
-const kale = new Item({item: 'kale'});
 
-kale.save();
-
-console.log(kale);
 module.exports = mongoose.model('Grocery', grocerySchema);
