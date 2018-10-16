@@ -19,21 +19,25 @@ router.get('/', (req, res) => {
 
 
 router.get('/new', (req, res) => {
-	res.render('./items/new.ejs')
-})
+	Grocery.find({}, (err, foundGroceries) => {
+		res.render('./items/new.ejs', {
+			stores: foundGroceries
+		});
+	});
+});
 
 router.post('/', (req, res) => {
-	Item.create(req.body, (err, createdItem) => {
-		let store = new Grocery({name: req.body.store});
-		store.items.push(createdItem);
-		store.save();
-		if(err) {
-			console.log(err);
-		} else {
-			console.log(store);
-			res.redirect('/items')
-		}
-	})
+	// Item.create(req.body, (err, createdItem) => {
+	// 	let store = new Grocery({name: req.body.store});
+	// 	store.items.push(createdItem);
+	// 	store.save();
+	// 	if(err) {
+	// 		console.log(err);
+	// 	} else {
+	// 		console.log(store);
+	// 		res.redirect('/items')
+	// 	}
+	// })
 })
 
 
