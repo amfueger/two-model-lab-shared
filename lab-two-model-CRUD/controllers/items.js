@@ -27,17 +27,18 @@ router.get('/new', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-	// Item.create(req.body, (err, createdItem) => {
-	// 	let store = new Grocery({name: req.body.store});
-	// 	store.items.push(createdItem);
-	// 	store.save();
-	// 	if(err) {
-	// 		console.log(err);
-	// 	} else {
-	// 		console.log(store);
-	// 		res.redirect('/items')
-	// 	}
-	// })
+	Item.create(req.body, (err, createdItem) => {
+		if(err) {
+			console.log(err);
+		} else {
+			console.log();
+			const store = req.body.name;
+			Grocery.findOneAndUpdate(grocery.it)
+			store.items.push(createdItem);
+			store.save();
+			res.redirect('/items')
+		}
+	})
 })
 
 

@@ -39,6 +39,7 @@ router.get('/:id', (req, res) => {
 		if(err) {
 			console.log(err);
 		} else {
+			console.log(foundGrocery);
 			res.render('./grocery/show.ejs', {
 				grocery: foundGrocery
 			})
