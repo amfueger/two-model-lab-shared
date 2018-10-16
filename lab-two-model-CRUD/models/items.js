@@ -6,7 +6,9 @@ const itemSchema = new mongoose.Schema({
     available: Boolean,
     cost: Number,
     brand: String,
-    store: [Grocery.schema]
+    // store: [Grocery.schema]
 })
+
+
 
 module.exports = mongoose.model('Item', itemSchema);

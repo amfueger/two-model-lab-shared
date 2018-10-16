@@ -4,6 +4,10 @@ const router = express.Router();
 const Item = require('../models/items');
 const Grocery = require('../models/grocery');
 
+const kale = new Item({item: 'kale'});
+
+kale.save();
+
 
 router.get('/', (req, res) => {
 	Item.find({}, (err, foundItems) => {
@@ -24,6 +28,8 @@ router.get('/new', (req, res) => {
 
 router.post('/', (req, res) => {
 	Item.create(req.body, (err, createdItem) => {
+		const wholeFoods = new Grocery({name: 'Whole Foods'});
+		wholeFoods.items.push(createdItem);
 		if(err) {
 			console.log(err);
 		} else {
