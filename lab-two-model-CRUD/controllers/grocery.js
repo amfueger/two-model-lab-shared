@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const Grocery = require('../models/grocery');
-
+const Item = require('../models/items');
 
 router.get('/new', (req, res) => {
 	res.render('./grocery/new.ejs', {

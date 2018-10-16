@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Grocery = require('/grocery');
+const Grocery = require('./grocery');
 
 const itemSchema = new mongoose.Schema({
     item: {type: String, required: true},

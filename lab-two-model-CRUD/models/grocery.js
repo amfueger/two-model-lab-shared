@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Item = require('/items');
+const Item = require('./items');
 
 
 const grocerySchema = new mongoose.Schema({
