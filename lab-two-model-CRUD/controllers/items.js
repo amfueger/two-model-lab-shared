@@ -27,17 +27,16 @@ router.get('/new', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-	Item.create(req.body, (err, createdItem) => {
-		if(err) {
-			console.log(err);
-		} else {
-			console.log();
-			const store = req.body.name;
-			Grocery.findOneAndUpdate(grocery.it)
-			store.items.push(createdItem);
-			store.save();
-			res.redirect('/items')
-		}
+	const storeId = req.body.store;
+		Grocery.findById(storeId, (err, foundStore) => {
+			Item.create(req.body, (err, createdItem) => {
+				console.log(foundStore.items);
+				console.log(createdItem);
+				foundStore.items.push(createdItem);
+				foundStore.save();
+		})
+		res.redirect('/items');
+		console.log(foundStore.items);
 	})
 })
 
@@ -65,18 +64,23 @@ router.get('/:id/edit', (req, res) => {
 })
 
 router.put('/:id', (req, res) => {
-	Item.findByIdAndUpdate(req.params.id, req.body, (err, updatedItem) => {
-		if(err) {
-			console.log(err);
-		} else {
+	Item.findByIdAndUpdate(req.params.id, req.body, {new: true}, (err, updatedItem) => {
+		Grocery.findOne({'items._id': req.params.id}, (err, foundGrocery) => {
+			foundGrocery.items.id(req.params.id).remove();
+			foundGrocery.items.push(updatedItem);
+			foundGrocery.save();
 			res.redirect('/items');
-		}
+		})
 	})
 })
 
 router.delete('/:id', (req, res) => {
 	Item.findByIdAndRemove(req.params.id, (err, deletedItem) => {
-		res.redirect('/items');
+		Grocery.findOne({'items._id': req.params.id}, (err, foundGrocery) => {
+			foundGrocery.items.id(req.params.id).remove();
+			foundGrocery.save();
+			res.redirect('/items');
+		})
 	})
 })
 

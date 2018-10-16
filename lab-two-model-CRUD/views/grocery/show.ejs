@@ -8,13 +8,18 @@
 		<h1>Store: <%=grocery.name%></h1>
 		<h3>Open: <%=grocery.open%></h3>
 		<h3>Price: <%=grocery.price%></h3>
-		<h3>Items: <%=grocery.items%></h3>
+		<h3>Items: </h3>
+		<%grocery.items.forEach((el, i) => { %>
+			<h3><%=el.brand%>  <%=el.item%>:  $<%=el.cost%></h3>
+		<% })%>
 	</header>
 
 	<a href="/grocery/<%=grocery.id%>/edit">Edit the Store</a>
 	<form action="/grocery/<%=grocery.id%>?_method=DELETE" method="POST">
 		<button type="submit">Delete</button>
 	</form>
+	<br>
+	<a href="/grocery">Home</a>
 
 </body>
 </html>
