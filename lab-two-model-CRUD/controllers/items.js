@@ -63,6 +63,12 @@ router.put('/:id', (req, res) => {
 	})
 })
 
+router.delete('/:id', (req, res) => {
+	Item.findByIdAndRemove(req.params.id, (err, deletedItem) => {
+		res.redirect('/items');
+	})
+})
+
 
 
 
