@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Item</title>
+</head>
+<body>
+	<h1>Item: <%=item.item%></h1>
+	<h3>Available: <%=item.available%></h3>
+	<h3>Cost: <%=item.cost%></h3>
+	<h3>Brand: <%=item.brand%></h3>
+	<br>
+	<br>
+	<form action="/items/<%=item.id%>?_method=DELETE" method="POST">
+		<button type="submit">Delete</button>
+	</form>
+	<br>
+	<a href="/items/<%=item.id%>/edit">Edit Your Item</a>
+	<br>
+	<a href="/items">Home</a>
+</body>
+</html>

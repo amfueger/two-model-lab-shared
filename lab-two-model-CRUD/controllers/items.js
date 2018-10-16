@@ -31,7 +31,37 @@ router.post('/', (req, res) => {
 	})
 })
 
+router.get('/:id', (req, res) => {
+	Item.findById(req.params.id, (err, foundItem) => {
+		res.render('./items/show.ejs', {
+			item: foundItem
+		})
+	})
+})
 
+
+router.get('/:id/edit', (req, res) => {
+	Item.findById(req.params.id, (err, foundItem) => {
+		if(err) {
+			console.log(err);
+		} else {
+			res.render('./items/edit.ejs', {
+				item: foundItem,
+				id: req.params.id
+			})
+		}
+	})
+})
+
+router.put('/:id', (req, res) => {
+	Item.findByIdAndUpdate(req.params.id, req.body, (err, updatedItem) => {
+		if(err) {
+			console.log(err);
+		} else {
+			res.redirect('/items');
+		}
+	})
+})
 
 
 
