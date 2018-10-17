@@ -4,19 +4,34 @@ const router = express.Router();
 const Grocery = require('../models/grocery');
 const Item = require('../models/items');
 
-router.get('/new', (req, res) => {
-	res.render('./grocery/new.ejs', {
-		grocery: Grocery
-	})
-})
-router.post('/', (req, res) => {
-	Grocery.create(req.body, (err, createGrocery) => {
-		if(err){
-			console.log(err, "err");
-		} else {
-			res.redirect('/grocery')
+router.get('/new', async (req, res) => {
+		try {
+		res.render('./grocery/new.ejs',{
+			grocery: Grocery
+		})
+		} catch(err){
+			res.send(err, "err");
 		}
-	});
+		
+	// res.render('./grocery/new.ejs', {
+	// 	grocery: Grocery
+	// })
+})
+router.post('/', async (req, res) => {
+		try {
+		const createGrocery = await Grocery.create(req.body);
+		res.redirect('/grocery');
+		} catch(err){
+			res.send(err, "err");
+		}
+		
+	// Grocery.create(req.body, (err, createGrocery) => {
+	// 	if(err){
+	// 		console.log(err, "err");
+	// 	} else {
+	// 		res.redirect('/grocery')
+	// 	}
+	// });
 });
 
 // router.get('/:id', (req, res) => {
