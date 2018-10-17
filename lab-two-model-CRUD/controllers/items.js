@@ -81,28 +81,52 @@ router.get('/:id', async (req, res) => {
 })
 
 
-router.get('/:id/edit', (req, res) => {
-	Item.findById(req.params.id, (err, foundItem) => {
-		if(err) {
-			console.log(err);
-		} else {
-			res.render('./items/edit.ejs', {
-				item: foundItem,
-				id: req.params.id
-			})
-		}
-	})
-})
-
-router.put('/:id', (req, res) => {
-	Item.findByIdAndUpdate(req.params.id, req.body, {new: true}, (err, updatedItem) => {
-		Grocery.findOne({'items._id': req.params.id}, (err, foundGrocery) => {
-			foundGrocery.items.id(req.params.id).remove();
-			foundGrocery.items.push(updatedItem);
-			foundGrocery.save();
-			res.redirect('/items');
+router.get('/:id/edit', async (req, res) => {
+		try {
+		const foundItem = await Item.findById(req.params.id);
+		res.render('./items/edit.ejs', {
+			item: foundItem,
+			id: req.params.id
 		})
-	})
+		} catch(err){
+			res.send(err, "err");
+		}
+		
+	
+
+
+	// Item.findById(req.params.id, (err, foundItem) => {
+	// 	if(err) {
+	// 		console.log(err);
+	// 	} else {
+	// 		res.render('./items/edit.ejs', {
+	// 			item: foundItem,
+	// 			id: req.params.id
+	// 		})
+	// 	}
+	// })
+});
+
+router.put('/:id', async (req, res) => {
+	try {
+	const updatedItem = await Item.findByIdAndUpdate(req.params.id, req.body, {new: true});
+	const foundGrocery = await Grocery.findOne({'items._id': req.params.id});
+	foundGrocery.items.id(req.params.id).remove();
+	foundGrocery.items.push(updatedItem);
+	foundGrocery.save();
+	res.redirect('/items');
+	} catch(err){
+		res.send(err, "err");
+	}
+	
+	// Item.findByIdAndUpdate(req.params.id, req.body, {new: true}, (err, updatedItem) => {
+	// 	Grocery.findOne({'items._id': req.params.id}, (err, foundGrocery) => {
+	// 		foundGrocery.items.id(req.params.id).remove();
+	// 		foundGrocery.items.push(updatedItem);
+	// 		foundGrocery.save();
+	// 		res.redirect('/items');
+	// 	})
+	// })
 })
 
 router.delete('/:id', (req, res) => {
