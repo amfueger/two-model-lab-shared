@@ -33,18 +33,31 @@ router.get('/new', async (req, res) => {
 	// });
 });
 
-router.post('/', (req, res) => {
-	const storeId = req.body.store;
-		Grocery.findById(storeId, (err, foundStore) => {
-			Item.create(req.body, (err, createdItem) => {
-				console.log(foundStore.items);
-				console.log(createdItem);
-				foundStore.items.push(createdItem);
-				foundStore.save();
-		})
-		res.redirect('/items');
-		console.log(foundStore.items);
-	})
+router.post('/', async (req, res) => {
+	try {
+		const storeId = req.body.store;
+		const foundStore = await Grocery.findById(storeId);
+		const createdItem = await Item.create(req.body);
+		console.log(foundStore, 'store before editing ');
+		foundStore.items.push(createdItem);
+		foundStore.save();
+		console.log(foundStore, 'the found store');
+		res.redirect('/items')
+
+	} catch (err) {
+		res.send(err)
+	}
+	// const storeId = req.body.store;
+	// 	Grocery.findById(storeId, (err, foundStore) => {
+	// 		Item.create(req.body, (err, createdItem) => {
+	// 			console.log(foundStore.items);
+	// 			console.log(createdItem);
+	// 			foundStore.items.push(createdItem);
+	// 			foundStore.save();
+	// 	})
+	// 	res.redirect('/items');
+	// 	console.log(foundStore.items);
+	// })
 })
 
 
