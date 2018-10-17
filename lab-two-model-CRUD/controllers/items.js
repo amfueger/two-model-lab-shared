@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
 	} catch (err) {
 		res.send(err);
 	}
-})
+});
 
 
 router.get('/new', async (req, res) => {
@@ -58,7 +58,7 @@ router.post('/', async (req, res) => {
 	// 	res.redirect('/items');
 	// 	console.log(foundStore.items);
 	// })
-})
+});
 
 
 router.get('/:id', async (req, res) => {
@@ -78,7 +78,7 @@ router.get('/:id', async (req, res) => {
 	// 		item: foundItem
 	// 	})
 	// })
-})
+});
 
 
 router.get('/:id/edit', async (req, res) => {
@@ -127,17 +127,27 @@ router.put('/:id', async (req, res) => {
 	// 		res.redirect('/items');
 	// 	})
 	// })
-})
+});
 
-router.delete('/:id', (req, res) => {
-	Item.findByIdAndRemove(req.params.id, (err, deletedItem) => {
-		Grocery.findOne({'items._id': req.params.id}, (err, foundGrocery) => {
-			foundGrocery.items.id(req.params.id).remove();
-			foundGrocery.save();
-			res.redirect('/items');
-		})
-	})
-})
+router.delete('/:id', async (req, res) => {
+		try {
+		const deletedItem = await Item.findByIdAndRemove(req.params.id);
+		const foundGrocery = await Grocery.findOne({'items._id': req.params.id});
+		foundGrocery.items.id(req.params.id).remove();
+		foundGrocery.save();
+		res.redirect('/items');
+		} catch(err){
+			res.send(err, "err");
+		}
+		
+	// Item.findByIdAndRemove(req.params.id, (err, deletedItem) => {
+	// 	Grocery.findOne({'items._id': req.params.id}, (err, foundGrocery) => {
+	// 		foundGrocery.items.id(req.params.id).remove();
+	// 		foundGrocery.save();
+	// 		res.redirect('/items');
+	// 	})
+	// })
+});
 
 
 
