@@ -41,12 +41,21 @@ router.post('/', async (req, res) => {
 // 	res.render('index.ejs')
 // })
 
-router.get('/', (req, res) => {
-	Grocery.find({}, (err, findGrocery) => {
-		res.render('./grocery/index.ejs', {
-			grocery:findGrocery
-		});
-	});	
+router.get('/', async (req, res) => {
+		try {
+		const findGrocery = await Grocery.find();
+		res.render('./grocery/index.ejs',{
+			grocery: findGrocery
+		})
+		} catch(err){
+			res.send(err, "err");
+		}
+		
+	// Grocery.find({}, (err, findGrocery) => {
+	// 	res.render('./grocery/index.ejs', {
+	// 		grocery:findGrocery
+	// 	});
+	// });	
 });
 
 router.get('/:id', (req, res) => {
