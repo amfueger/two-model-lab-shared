@@ -61,12 +61,23 @@ router.post('/', async (req, res) => {
 })
 
 
-router.get('/:id', (req, res) => {
-	Item.findById(req.params.id, (err, foundItem) => {
+router.get('/:id', async (req, res) => {
+	try {
+		const foundItem = await Item.findById(req.params.id);
 		res.render('./items/show.ejs', {
 			item: foundItem
 		})
-	})
+	} catch (err) {
+		res.send(err)
+	}
+
+
+
+	// Item.findById(req.params.id, (err, foundItem) => {
+	// 	res.render('./items/show.ejs', {
+	// 		item: foundItem
+	// 	})
+	// })
 })
 
 
