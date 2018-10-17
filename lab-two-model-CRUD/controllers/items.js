@@ -5,25 +5,32 @@ const Item = require('../models/items');
 const Grocery = require('../models/grocery');
 
 
-router.get('/', (req, res) => {
-	Item.find({}, (err, foundItems) => {
-		if(err) {
-			console.log(err);
-		} else {
-			res.render('./items/index.ejs', {
-				items: foundItems
-			})
-		}
-	})
+router.get('/', async (req, res) => {
+	try {
+		const foundItems = await Item.find({});
+		res.render('./items/index.ejs', {
+			items: foundItems
+		})
+	} catch (err) {
+		res.send(err);
+	}
 })
 
 
-router.get('/new', (req, res) => {
-	Grocery.find({}, (err, foundGroceries) => {
+router.get('/new', async (req, res) => {
+	try {
+		const foundGroceries = await Grocery.find({});
 		res.render('./items/new.ejs', {
 			stores: foundGroceries
-		});
-	});
+		})
+	} catch (err) {
+		res.send(err)
+	}
+	// Grocery.find({}, (err, foundGroceries) => {
+	// 	res.render('./items/new.ejs', {
+	// 		stores: foundGroceries
+	// 	});
+	// });
 });
 
 router.post('/', (req, res) => {
