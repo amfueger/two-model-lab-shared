@@ -58,48 +58,84 @@ router.get('/', async (req, res) => {
 	// });	
 });
 
-router.get('/:id', (req, res) => {
-	Grocery.findById(req.params.id, (err, foundGrocery) => {
-		if(err) {
-			console.log(err);
-		} else {
-			console.log(foundGrocery);
-			res.render('./grocery/show.ejs', {
-				grocery: foundGrocery
-			})
+router.get('/:id', async (req, res) => {
+		try {
+		const foundGrocery = await Grocery.findById(req.params.id);
+		res.render('./grocery/show.ejs',{
+			grocery: foundGrocery
+		})
+		} catch(err){
+			res.send(err, "err");
 		}
-	})
-})
+		
+	// Grocery.findById(req.params.id, (err, foundGrocery) => {
+	// 	if(err) {
+	// 		console.log(err);
+	// 	} else {
+	// 		console.log(foundGrocery);
+	// 		res.render('./grocery/show.ejs', {
+	// 			grocery: foundGrocery
+	// 		})
+	// 	}
+	// })
+});
 
-router.get('/:id/edit', (req, res) => {
-	Grocery.findById(req.params.id, (err, foundGrocery) => {
-		if(err) {
-			console.log(err);
-		} else {
-			res.render('./grocery/edit.ejs', {
-				grocery: foundGrocery,
-				id: req.params.id
-			})
+router.get('/:id/edit', async (req, res) => {
+	try {
+	const foundGrocery = await Grocery.findById(req.params.id);
+	res.render('./grocery/edit.ejs', {
+		grocery: foundGrocery,
+		id: req.params.id
+	})
+	} catch(err){
+		res.send(err, "err");
+	}
+	
+
+	// Grocery.findById(req.params.id, (err, foundGrocery) => {
+	// 	if(err) {
+	// 		console.log(err);
+	// 	} else {
+	// 		res.render('./grocery/edit.ejs', {
+	// 			grocery: foundGrocery,
+	// 			id: req.params.id
+	// 		})
+	// 	}
+	// })
+
+
+});
+
+
+router.put('/:id', async (req, res) => {
+		try {
+		const updatedGrocery = await Grocery.findByIdAndUpdate(req.params.id, req.body);
+		res.direct('/grocery');
+		} catch(err){
+			res.send(err, "err");
 		}
-	})
-})
-
-
-router.put('/:id', (req, res) => {
-	Grocery.findByIdAndUpdate(req.params.id, req.body, (err, updatedGrocery) => {
-		if(err) {
-			console.log(err);
-		} else {
-			res.redirect('/grocery');
-		}
-	})
-})
+		
+	// Grocery.findByIdAndUpdate(req.params.id, req.body, (err, updatedGrocery) => {
+	// 	if(err) {
+	// 		console.log(err);
+	// 	} else {
+	// 		res.redirect('/grocery');
+	// 	}
+	// })
+});
 
 router.delete('/:id', (req, res) => {
-	Grocery.findByIdAndRemove(req.params.id, (err, deletedGrocery) => {
+		try {
+		const deletedGrocery = await Grocery.findByIdAndRemove(req.params.id);
 		res.redirect('/grocery');
-	})
-})
+		} catch(err){
+			res.send(err, "err");
+		}
+		
+	// Grocery.findByIdAndRemove(req.params.id, (err, deletedGrocery) => {
+	// 	res.redirect('/grocery');
+	// })
+});
 
 
 module.exports = router;
