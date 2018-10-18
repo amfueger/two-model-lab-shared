@@ -110,7 +110,7 @@ router.get('/:id/edit', async (req, res) => {
 router.put('/:id', async (req, res) => {
 		try {
 		const updatedGrocery = await Grocery.findByIdAndUpdate(req.params.id, req.body);
-		res.direct('/grocery');
+		res.redirect('/grocery');
 		} catch(err){
 			res.send(err, "err");
 		}
