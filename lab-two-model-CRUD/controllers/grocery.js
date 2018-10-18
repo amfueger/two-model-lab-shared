@@ -124,7 +124,7 @@ router.put('/:id', async (req, res) => {
 	// })
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', async (req, res) => {
 		try {
 		const deletedGrocery = await Grocery.findByIdAndRemove(req.params.id);
 		res.redirect('/grocery');
